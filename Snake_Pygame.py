@@ -19,7 +19,6 @@ pygame.display.set_caption('This is Leon\'s Snake game!')
 clock = pygame.time.Clock()
 
 snake_block = 10
-snake_speed = 15
 
 font_style = pygame.font.SysFont('bahnschrift', 25)
 score_font = pygame.font.SysFont('comicsansms', 35)
@@ -40,7 +39,7 @@ def message(msg, color):
     dis.blit(mesg, [dis_width/6, dis_height/3])
 
 
-def gameLoop():
+def game_loop(snake_speed=15):
     game_over = False
     game_close = False
 
@@ -70,11 +69,10 @@ def gameLoop():
                         game_over = True
                         game_close = False
                     if event.key == pygame.K_c:
+                        snake_speed -= (lengh_of_snake -1) * 2
                         gameLoop()
 
         for event in pygame.event.get():
-            #if event.type == pygame.QUIT():
-            #    game_over = True
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
                     x1_change = -snake_block
@@ -117,12 +115,13 @@ def gameLoop():
             foodx = round(random.randrange(0, dis_width - snake_block) / 10) * 10
             foody = round(random.randrange(0, dis_width - snake_block) / 10) * 10
             length_of_snake += 1
+            snake_speed += 2
         clock.tick(snake_speed)
 
     pygame.quit()
     quit()
 
 
-gameLoop()
+game_loop()
 
 
